@@ -8,7 +8,7 @@ trigger:
 
 variables:
   # Azure Resource Manager connection created during pipeline creation
-  azureSubscription: 'e58174fa-d90a-4773-9613-7af70033131e'
+  azureSubscription: '8a01c013-32ee-4251-b39b-75536d8edf96'
 
   # Function app name
   functionAppName: 'test-private-endpoint-ema'
