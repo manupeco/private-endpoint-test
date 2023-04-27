@@ -39,9 +39,9 @@ steps:
           --account-name '$(storageAccountName)' \
           --account-key '$(storageAccountKey)' \
           --container-name app \
-          --type block \
-          --source '$(sourceDirectory)' \
-          --name '$(zipFile)'
+          --type block \          
+          --file '$(zipFile)'
+          --name '$(zipFileName)'
   
  
 - task: AzureCLI@2  
