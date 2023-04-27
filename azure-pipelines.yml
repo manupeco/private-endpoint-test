@@ -53,7 +53,7 @@ steps:
       sasUrl=$(az storage blob generate-sas --account-name $storageAccountName --account-key $storageAccountKey --container-name $containerName --name $filePath --expiry $expiryTime --permissions r)
       
       # Output the SAS token
-      echo "##vso[task.setvariable variable=sasToken]$sasToken"
+      echo "##vso[task.setvariable variable=sasUrl]$sasUrl"
       
  
 - task: AzureCLI@2
@@ -68,4 +68,4 @@ steps:
       az functionapp deployment source config-zip `
           --resource-group $(resourceGroupName) `
           --name $(functionName) `
-          --src "$sasToken"
+          --src "$sasUrl"
