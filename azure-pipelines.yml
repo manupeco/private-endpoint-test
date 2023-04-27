@@ -29,15 +29,32 @@ steps:
     archiveType: 'zip'
     archiveFile: '$(zipFile)'
  
-- task: AzureCLI@2
-  displayName: 'Generate SAS URL'
+- task: AzureCLI@2  
   inputs:
+    scriptType: 'bash'
     azureSubscription: 'Ema sub (8a01c013-32ee-4251-b39b-75536d8edf96)'
-    scriptType: 'pscore'
     scriptLocation: 'inlineScript'
     inlineScript: |
-      $sasToken = (New-AzStorageContainerSASToken -Context $(New-AzStorageContext) -StorageAccountName $(storageAccountName) -StorageAccountKey $(storageAccountKey)) -ExpiryTime (Get-Date).AddDays(1) -FullUri -Name $(containerName) -Permission r -Protocol HttpsOnly)
-      Write-Host "##vso[task.setvariable variable=SAS_URL]$sasToken/$(zipFileName)"
+      # Set the storage account name and key
+      storageAccountName='$(storageAccountName)'
+      storageAccountKey='$(storageAccountKey)'
+      
+      # Set the container name and file path
+      containerName='$(containerName)'
+      filePath="test-endpoint.zip"
+      
+      # Set the expiry time for the SAS token (in minutes)
+      expiryTimeInMinutes="60"
+      
+      # Get the current time and add the expiry time to it
+      expiryTime=$(($(date +%s) + ($expiryTimeInMinutes * 60)))
+      
+      # Generate the SAS token for the file
+      sasUrl=$(az storage blob generate-sas --account-name $storageAccountName --account-key $storageAccountKey --container-name $containerName --name $filePath --expiry $expiryTime --permissions r)
+      
+      # Output the SAS token
+      echo "##vso[task.setvariable variable=sasToken]$sasToken"
+      
  
 - task: AzureCLI@2
   displayName: 'Deploy Code to Function App'
