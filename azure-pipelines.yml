@@ -68,4 +68,4 @@ steps:
       az functionapp deployment source config-zip `
           --resource-group $(resourceGroupName) `
           --name $(functionName) `
-          --src "$sasUrl"
+          --src "$(sasUrl)"
