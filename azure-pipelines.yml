@@ -63,6 +63,7 @@ steps:
     scriptType: 'pscore'
     scriptLocation: 'inlineScript'
     inlineScript: |
+      echo $(sasUrl)
       $sasUrl = $(sasUrl)
       az config set extension.use_dynamic_install=yes_without_prompt
       az functionapp deployment source config-zip `
