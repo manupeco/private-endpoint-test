@@ -51,7 +51,7 @@ steps:
       # Generate the SAS token for the file
       sasUrl=$(az storage blob generate-sas --account-name $storageAccountName --account-key $storageAccountKey --container-name $containerName --name $filePath --expiry 2023-04-28T00:00:00Z --permissions r)
       
-      echo '$(sasUrl)'
+      echo $sasUrl
 
       # Output the SAS token
       echo "##vso[task.setvariable variable=sasUrl]$sasUrl"
