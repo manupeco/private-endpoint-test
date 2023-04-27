@@ -63,7 +63,7 @@ steps:
     scriptType: 'pscore'
     scriptLocation: 'inlineScript'
     inlineScript: |
-      $sasUrl = $(SAS_URL)
+      $sasUrl = $(sasToken)
       az functionapp deployment source config-zip `
           --resource-group $(resourceGroupName) `
           --name $(functionName) `
