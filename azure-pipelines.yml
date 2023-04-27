@@ -56,16 +56,11 @@ steps:
       echo "##vso[task.setvariable variable=sasToken]$sasToken"
       
  
-- task: AzureCLI@2
-  displayName: 'Deploy Code to Function App'
+- task: AzureFunctionApp@1
   inputs:
     azureSubscription: 'Ema sub (8a01c013-32ee-4251-b39b-75536d8edf96)'
-    scriptType: 'pscore'
-    scriptLocation: 'inlineScript'
-    inlineScript: |
-      $sasUrl = $(sasToken)
-      az functionapp deployment source config-zip `
-          --resource-group $(resourceGroupName) `
-          --name $(functionName) `
-          --package-url $sasUrl `
-          --src-url "$sasUrl/$(zipFileName)"
+    appType: 'functionAppLinux'
+    appName: '$(functionName)'
+    package: '$(sasToken)'    
+    deployToSlotOrASE: true
+
