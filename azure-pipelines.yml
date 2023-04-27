@@ -38,9 +38,8 @@ steps:
         az storage blob upload \
           --account-name '$(storageAccountName)' \
           --account-key '$(storageAccountKey)' \
-          --container-name app \
-          --type block \          
-          --file '$(zipFile)'
+          --container-name 'app' \    
+          --file '$(zipFile)' \
           --name '$(zipFileName)'
   
  
