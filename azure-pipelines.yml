@@ -64,8 +64,8 @@ steps:
     scriptLocation: 'inlineScript'
     inlineScript: |
       $sasUrl = $(sasToken)
-      az functionapp deployment source config-zip --src`
+      az functionapp deployment source config-zip`
           --resource-group $(resourceGroupName) `
           --name $(functionName) `
           --package-url $sasUrl `
-          --src-url "$sasUrl/$(zipFileName)"
+          --src "$sasUrl/$(zipFileName)"
