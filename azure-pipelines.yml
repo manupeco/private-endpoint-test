@@ -17,7 +17,7 @@ variables:
   zipFileName: "test-endpoint.zip"
    
   # Deployment package settings
-  sourceDirectory: "$(System.DefaultWorkingDirectory)/<path-to-your-source-directory>"
+  sourceDirectory: "$(System.DefaultWorkingDirectory)/src"
   zipFile: "$(System.DefaultWorkingDirectory)/test-endpoint.zip"
    
 steps:
