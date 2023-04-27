@@ -36,7 +36,7 @@ steps:
     scriptType: 'pscore'
     scriptLocation: 'inlineScript'
     inlineScript: |
-      $sasToken = (New-AzStorageContainerSASToken -Context $(New-AzStorageContext -StorageAccountName $(storageAccountName) -StorageAccountKey $(storageAccountKey)) -ExpiryTime (Get-Date).AddDays(1) -FullUri -Name $(containerName) -Permission r -Protocol HttpsOnly)
+      $sasToken = (New-AzStorageContainerSASToken -Context $(New-AzStorageContext) -StorageAccountName $(storageAccountName) -StorageAccountKey $(storageAccountKey)) -ExpiryTime (Get-Date).AddDays(1) -FullUri -Name $(containerName) -Permission r -Protocol HttpsOnly)
       Write-Host "##vso[task.setvariable variable=SAS_URL]$sasToken/$(zipFileName)"
  
 - task: AzureCLI@2
