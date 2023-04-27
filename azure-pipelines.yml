@@ -48,7 +48,7 @@ steps:
       
       # Get the current time and add the expiry time to it
       expiryTime=$(($(date +%s) + ($expiryTimeInMinutes * 60)))
-      expiryDate=date -u -d @$(expiryTime) '+%Y-%m-%dT%H:%M:%SZ'
+      expiryDate=$(date -u -d @$(expiryTime) '+%Y-%m-%dT%H:%M:%SZ')
       
       # Generate the SAS token for the file
       sasUrl=$(az storage blob generate-sas --account-name $storageAccountName --account-key $storageAccountKey --container-name $containerName --name $filePath --expiry $expiryTime --permissions r)
