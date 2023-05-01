@@ -58,7 +58,7 @@ steps:
     
       
       # Generate the SAS token for the file
-      sasToken=$(az storage blob generate-sas --account-name $storageAccountName --account-key $storageAccountKey --container-name $containerName --name $filePath --expiry 2023-04-28T00:00:00Z --permissions r)
+      sasToken=$(az storage blob generate-sas --account-name $storageAccountName --account-key $storageAccountKey --container-name $containerName --name $filePath --expiry 2024-04-28T00:00:00Z --permissions r)
       
       echo $sasToken
 
