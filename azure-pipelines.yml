@@ -17,11 +17,11 @@ variables:
   storageAccountName: "emasplashapp"
   storageAccountKey: "bMWohgvScWZPEh3pOTYKC886UpHW1q0PUqKYmkD7AmDTEVb/4L1X93hpD3Eq3t3xYhjGTugZW91R+AStC8e3ww=="
   containerName: "app"
-  zipFileName: "test-endpoint-v7.zip"
+  zipFileName: "test-endpoint-v8.zip"
    
   # Deployment package settings
   sourceDirectory: "$(System.DefaultWorkingDirectory)"
-  zipFile: "$(System.DefaultWorkingDirectory)/test-endpoint-v7.zip"
+  zipFile: "$(System.DefaultWorkingDirectory)/test-endpoint-v8.zip"
    
 steps:
 - task: ArchiveFiles@2
@@ -80,7 +80,8 @@ steps:
       #ENCODED_SAS_TOKEN=$(python -c "import sys, urllib.parse; print(urllib.parse.quote(sys.argv[1]))" "$(sasToken)")
       sasUrl=https://emasplashapp.blob.core.windows.net/app/$(zipFileName)?$(sasToken)
       echo $sasUrl
-      az webapp config appsettings set --resource-group $(resourceGroupName) --name $(functionName) --settings WEBSITE_RUN_FROM_PACKAGE=$sasUrl
+      az webapp config appsettings set --resource-group $(resourceGroupName) --name $(functionName) --settings WEBSITE_CONTENTOVERVNET=1
+      az webapp config appsettings set --resource-group $(resourceGroupName) --name $(functionName) --settings WEBSITE_RUN_FROM_PACKAGE=$sasUrl      
       # az storage blob download -f '$(zipFile)' -c '$(containerName)' -n '$(zipFileName)' --sas-token '$(sasToken)' --account-name '$(storageAccountName)'
       # az functionapp deployment source config-zip -g $resourceGroup -n $functionAppName --src $packageUri --build-remote false --slot staging
       #az config set extension.use_dynamic_install=yes_without_prompt
