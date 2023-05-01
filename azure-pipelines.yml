@@ -39,7 +39,9 @@ steps:
       scriptLocation: 'inlineScript'
       inlineScript: |
         agent_ip=$(echo $AGENT_IPADDRESS)
+        echo $agent_ip
         az storage account network-rule add --resource-group '$(resourceGroupName)' --account-name '$(storageAccountName)' --ip-address $agent_ip
+        echo 'Done'
         az storage blob upload --overwrite --account-name '$(storageAccountName)' --account-key '$(storageAccountKey)' --container-name 'app' --file '$(zipFile)' --name '$(zipFileName)'
         az storage account network-rule remove --resource-group '$(resourceGroupName)' --account-name '$(storageAccountName)' --ip-address $agent_ip
 
@@ -89,4 +91,4 @@ steps:
       #az functionapp deployment source config-zip --resource-group $(resourceGroupName) --name $(functionName) --src $sasUrl 
 
       # az webapp config appsettings set --resource-group DefaultResourceGroup-WEU --name test-private-endpoint-ema --settings WEBSITE_RUN_FROM_PACKAGE=https://emasplashapp.blob.core.windows.net/app/test-endpoint.zip?se=2024-04-28T00%3A00%3A00Z&sp=r&sv=2021-06-08&sr=b&sig=WHTLp6TfPRo0kZP%2Fmr%2BoA8XK8V1dCA23dqqcFX1SkRk%3D
-    
+      az storage account network-rule add --resource-group DefaultResourceGroup-WEU --account-name emasplashapp --ip-address 86.247.207.251
