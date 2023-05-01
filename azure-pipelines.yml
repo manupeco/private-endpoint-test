@@ -74,7 +74,7 @@ steps:
     scriptLocation: 'inlineScript'
     inlineScript: |      
       ENCODED_SAS_TOKEN=$(python -c "import sys, urllib.parse; print(urllib.parse.quote(sys.argv[1]))" "$(sasToken)")
-      sasUrl='https://emasplashapp.blob.core.windows.net/app/test-endpoint.zip?$ENCODED_SAS_TOKEN'
+      sasUrl='https://emasplashapp.blob.core.windows.net/app/test-endpoint.zip?'+$ENCODED_SAS_TOKEN
       echo $sasUrl
       az storage blob download -f '$(zipFile)' -c '$(containerName)' -n '$(zipFileName)' --sas-token '$(sasToken)' --account-name '$(storageAccountName)'
       az config set extension.use_dynamic_install=yes_without_prompt
