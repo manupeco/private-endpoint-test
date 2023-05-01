@@ -57,8 +57,6 @@ steps:
       # Set the expiry time for the SAS token (in minutes)
       expiryTimeInMinutes="60"
       
-    
-      
       # Generate the SAS token for the file
       sasToken=$(az storage blob generate-sas --account-name $storageAccountName --account-key $storageAccountKey --container-name $containerName --name $filePath --expiry 2024-04-28T00:00:00Z --permissions r)      
       
@@ -75,7 +73,7 @@ steps:
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
     inlineScript: |
-      sasUrl = 'https://emasplashapp.blob.core.windows.net/app/test-endpoint.zip?$(sasToken)'
+      sasUrl='https://emasplashapp.blob.core.windows.net/app/test-endpoint.zip?$(sasToken)'
       ENCODED_SAS_URL=$(python -c "import sys, urllib.parse; print(urllib.parse.quote(sys.argv[1]))" "$sasUrl")
       az storage blob download -f '$(zipFile)' -c '$(containerName)' -n '$(zipFileName)' --sas-token '$(sasToken)' --account-name '$(storageAccountName)'
       az config set extension.use_dynamic_install=yes_without_prompt
