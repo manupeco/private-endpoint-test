@@ -77,5 +77,9 @@ steps:
       sasUrl='https://emasplashapp.blob.core.windows.net/app/test-endpoint.zip?se=2024-04-28T00%3A00%3A00Z&sp=r&sv=2021-06-08&sr=b&sig=WHTLp6TfPRo0kZP%2Fmr%2BoA8XK8V1dCA23dqqcFX1SkRk%3D'
       echo $sasUrl
       # az storage blob download -f '$(zipFile)' -c '$(containerName)' -n '$(zipFileName)' --sas-token '$(sasToken)' --account-name '$(storageAccountName)'
-      az config set extension.use_dynamic_install=yes_without_prompt
-      az functionapp deployment source config-zip --resource-group $(resourceGroupName) --name $(functionName) --src $sasUrl 
+      storageConnectionString=$(az storage account show-connection-string --name '$(storageAccountName)' --output tsv)
+      WEBSITE_WEBDEPLOY_USE_SCM=true
+      # az functionapp deployment source config-zip -g $resourceGroup -n $functionAppName --src $packageUri --build-remote false --slot staging
+      az functionapp deployment source config-zip --resource-group $(resourceGroupName) --name $(functionName) --src $sasUrl --build-remote false
+      #az config set extension.use_dynamic_install=yes_without_prompt
+      #az functionapp deployment source config-zip --resource-group $(resourceGroupName) --name $(functionName) --src $sasUrl 
