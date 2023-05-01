@@ -36,8 +36,15 @@ steps:
       scriptLocation: 'inlineScript'
       inlineScript: |
         az storage blob upload --overwrite --account-name '$(storageAccountName)' --account-key '$(storageAccountKey)' --container-name 'app' --file '$(zipFile)' --name '$(zipFileName)'
-  
- 
+
+- task: Bash@3
+  displayName: 'Install jq'
+  inputs:
+    targetType: 'inline'
+    script: |
+      sudo apt-get update
+      sudo apt-get install -yq jq
+        
 - task: AzureCLI@2  
   inputs:
     scriptType: 'bash'
