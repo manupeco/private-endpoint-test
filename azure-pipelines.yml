@@ -39,14 +39,6 @@ steps:
       scriptLocation: 'inlineScript'
       inlineScript: |
         az storage blob upload --overwrite --account-name '$(storageAccountName)' --account-key '$(storageAccountKey)' --container-name 'app' --file '$(zipFile)' --name '$(zipFileName)'
-
-- task: Bash@3
-  displayName: 'Install jq'
-  inputs:
-    targetType: 'inline'
-    script: |
-      sudo apt-get update
-      sudo apt-get install -yq jq
         
 - task: AzureCLI@2  
   inputs:
@@ -54,6 +46,9 @@ steps:
     azureSubscription: 'Ema sub (8a01c013-32ee-4251-b39b-75536d8edf96)'
     scriptLocation: 'inlineScript'
     inlineScript: |
+      sudo apt-get update
+      sudo apt-get install -yq moreutils
+    
       # Set the storage account name and key
       storageAccountName='$(storageAccountName)'
       storageAccountKey='$(storageAccountKey)'
