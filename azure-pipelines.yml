@@ -41,6 +41,8 @@ steps:
         agent_ip=$(curl -s http://ipinfo.io/ip)
         echo $agent_ip
         az storage account network-rule add --resource-group '$(resourceGroupName)' --account-name '$(storageAccountName)' --ip-address $agent_ip        
+        agent_ip=$(curl -s http://ipinfo.io/ip)
+        echo $agent_ip
         az storage blob upload --account-name '$(storageAccountName)' --account-key '$(storageAccountKey)' --container-name 'app' --file '$(zipFile)' --name '$(zipFileName)'
         #az storage account network-rule remove --resource-group '$(resourceGroupName)' --account-name '$(storageAccountName)' --ip-address $agent_ip
 
