@@ -17,11 +17,11 @@ variables:
   storageAccountName: "emasplashapp"
   storageAccountKey: "bMWohgvScWZPEh3pOTYKC886UpHW1q0PUqKYmkD7AmDTEVb/4L1X93hpD3Eq3t3xYhjGTugZW91R+AStC8e3ww=="
   containerName: "app"
-  zipFileName: "test-endpoint-v12.zip"
+  zipFileName: "test-endpoint-v13.zip"
    
   # Deployment package settings
   sourceDirectory: "$(System.DefaultWorkingDirectory)"
-  zipFile: "$(System.DefaultWorkingDirectory)/test-endpoint-v12.zip"
+  zipFile: "$(System.DefaultWorkingDirectory)/test-endpoint-v13.zip"
    
 steps:
 - task: ArchiveFiles@2
@@ -41,9 +41,8 @@ steps:
         agent_ip=$(curl -s http://ipinfo.io/ip)
         echo $agent_ip
         az storage account network-rule add --resource-group '$(resourceGroupName)' --account-name '$(storageAccountName)' --ip-address $agent_ip        
-        sleep 45
-        az storage blob upload --account-name '$(storageAccountName)' --account-key '$(storageAccountKey)' --container-name 'app' --file '$(zipFile)' --name '$(zipFileName)'
-        az storage account network-rule remove --resource-group '$(resourceGroupName)' --account-name '$(storageAccountName)' --ip-address $agent_ip
+        sleep 30
+        az storage blob upload --account-name '$(storageAccountName)' --account-key '$(storageAccountKey)' --container-name 'app' --file '$(zipFile)' --name '$(zipFileName)'        
 
         
 - task: AzureCLI@2  
@@ -91,4 +90,13 @@ steps:
       #az functionapp deployment source config-zip --resource-group $(resourceGroupName) --name $(functionName) --src $sasUrl 
 
       # az webapp config appsettings set --resource-group DefaultResourceGroup-WEU --name test-private-endpoint-ema --settings WEBSITE_RUN_FROM_PACKAGE=https://emasplashapp.blob.core.windows.net/app/test-endpoint.zip?se=2024-04-28T00%3A00%3A00Z&sp=r&sv=2021-06-08&sr=b&sig=WHTLp6TfPRo0kZP%2Fmr%2BoA8XK8V1dCA23dqqcFX1SkRk%3D
-      az storage account network-rule add --resource-group DefaultResourceGroup-WEU --account-name emasplashapp --ip-address 86.247.207.251
+      # az storage account network-rule add --resource-group DefaultResourceGroup-WEU --account-name emasplashapp --ip-address 86.247.207.251
+- task: AzureCLI@2
+  inputs:
+          azureSubscription: 'Ema sub (8a01c013-32ee-4251-b39b-75536d8edf96)'
+          scriptType: 'bash'
+          scriptLocation: 'inlineScript'
+          inlineScript: |
+            agent_ip=$(curl -s http://ipinfo.io/ip)
+            echo $agent_ip          
+            az storage account network-rule remove --resource-group '$(resourceGroupName)' --account-name '$(storageAccountName)' --ip-address $agent_ip      
