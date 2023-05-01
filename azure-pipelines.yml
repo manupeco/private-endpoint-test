@@ -73,8 +73,8 @@ steps:
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
     inlineScript: |      
-      ENCODED_SAS_TOKEN=$(python -c "import sys, urllib.parse; print(urllib.parse.quote(sys.argv[1]))" "$(sasToken)")
-      sasUrl='https://emasplashapp.blob.core.windows.net/app/$(zipFileName)?'+$ENCODED_SAS_TOKEN
+      #ENCODED_SAS_TOKEN=$(python -c "import sys, urllib.parse; print(urllib.parse.quote(sys.argv[1]))" "$(sasToken)")
+      sasUrl='https://emasplashapp.blob.core.windows.net/app/$(zipFileName)?'+$sasToken
       echo $sasUrl
       az webapp config appsettings set --resource-group $(resourceGroupName) --name $(functionName) --settings WEBSITE_RUN_FROM_PACKAGE=$sasUrl
       # az storage blob download -f '$(zipFile)' -c '$(containerName)' -n '$(zipFileName)' --sas-token '$(sasToken)' --account-name '$(storageAccountName)'
