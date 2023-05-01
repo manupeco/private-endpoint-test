@@ -39,9 +39,9 @@ steps:
       scriptLocation: 'inlineScript'
       inlineScript: |
         agent_ip=$(echo $AGENT_IPADDRESS)
-        az storage account network-rule add --name devopsRule --resource-group '$(resourceGroupName)' --account-name '$(storageAccountName)' --ip-address $agent_ip
+        az storage account network-rule add --resource-group '$(resourceGroupName)' --account-name '$(storageAccountName)' --ip-address $agent_ip
         az storage blob upload --overwrite --account-name '$(storageAccountName)' --account-key '$(storageAccountKey)' --container-name 'app' --file '$(zipFile)' --name '$(zipFileName)'
-        az storage account network-rule remove --resource-group '$(resourceGroupName)' --account-name '$(storageAccountName)' --name devopsRule
+        az storage account network-rule remove --resource-group '$(resourceGroupName)' --account-name '$(storageAccountName)' --ip-address $agent_ip
 
         
 - task: AzureCLI@2  
