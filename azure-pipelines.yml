@@ -17,11 +17,11 @@ variables:
   storageAccountName: "emasplashapp"
   storageAccountKey: "bMWohgvScWZPEh3pOTYKC886UpHW1q0PUqKYmkD7AmDTEVb/4L1X93hpD3Eq3t3xYhjGTugZW91R+AStC8e3ww=="
   containerName: "app"
-  zipFileName: "test-endpoint-v23.zip"
+  zipFileName: "test-endpoint-v24.zip"
    
   # Deployment package settings
   sourceDirectory: "$(System.DefaultWorkingDirectory)"
-  zipFile: "$(System.DefaultWorkingDirectory)/test-endpoint-v23.zip"
+  zipFile: "$(System.DefaultWorkingDirectory)/test-endpoint-v24.zip"
    
 steps:
 - task: ArchiveFiles@2
