@@ -16,7 +16,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             name = req_body.get('name')
 
     if name:
-        return func.HttpResponse(f"v22 Hello, {name}. This HTTP triggered function executed successfully.")
+        return func.HttpResponse(f"v23 Hello, {name}. This HTTP triggered function executed successfully.")
     else:
         return func.HttpResponse(
              "v22 This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.",
