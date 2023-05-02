@@ -42,7 +42,7 @@ steps:
         echo $agent_ip
         az storage account network-rule add --resource-group '$(resourceGroupName)' --account-name '$(storageAccountName)' --ip-address $agent_ip                
 - powershell: |
-    Start-Sleep -Seconds 40
+    Start-Sleep -Seconds 60
   displayName: 'Wait for rule'   
 
 - task: AzureCLI@2
